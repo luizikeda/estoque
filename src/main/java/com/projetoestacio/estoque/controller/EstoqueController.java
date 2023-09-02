@@ -4,6 +4,5 @@ import org.springframework.stereotype.Controller;
 
 @Controller
 public class EstoqueController {
-
-
+    public static String
 }
