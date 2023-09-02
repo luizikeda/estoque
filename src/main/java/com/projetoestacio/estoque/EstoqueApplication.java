@@ -10,4 +10,5 @@ public class EstoqueApplication {
 		SpringApplication.run(EstoqueApplication.class, args);
 	}
  // Teste
+	// o pedrão vai se fuder, o nono ano nao precisa de voce
 }
