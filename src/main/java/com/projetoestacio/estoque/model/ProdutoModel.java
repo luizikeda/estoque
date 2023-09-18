@@ -1,6 +1,7 @@
 package com.projetoestacio.estoque.model;
 
 
+import com.projetoestacio.estoque.model.enums.CategoriaEnum;
 import jakarta.persistence.*;
 import org.hibernate.annotations.GenericGenerator;
 
@@ -18,11 +19,21 @@ public class ProdutoModel {
 
     private String nome;
 
+    private String descricao;
+
+    private CategoriaEnum categoria;
+
+    private String estoque;
     private String sku;
 
     private String valor;
 
     private Date datavalidade;
+
+    /*@ManyToMany
+    @JoinColumn(name = "venda")
+    private Venda venda;*/
+
 
     public String getId() {
         return id;
@@ -62,5 +73,29 @@ public class ProdutoModel {
 
     public void setDatavalidade(Date datavalidade) {
         this.datavalidade = datavalidade;
+    }
+
+    public String getDescricao() {
+        return descricao;
+    }
+
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
+    }
+
+    public CategoriaEnum getCategoria() {
+        return categoria;
+    }
+
+    public void setCategoria(CategoriaEnum categoria) {
+        this.categoria = categoria;
+    }
+
+    public String getEstoque() {
+        return estoque;
+    }
+
+    public void setEstoque(String estoque) {
+        this.estoque = estoque;
     }
 }
