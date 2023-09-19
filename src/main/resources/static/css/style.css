@@ -1,0 +1,46 @@
+.ros-req > .control-label:after{
+    color: red;
+    content: " *";
+}
+
+.form-group{
+    margin-left: 15px;
+    margin-right: 15px;
+}
+
+.p0{
+    padding:0;
+}
+.p10{
+    padding:10px;
+}
+.pb20{
+    padding-bottom: 20px;
+}
+.m0{
+    margin:0;
+}
+.mt5{
+    margin-top:5px
+}
+.mb0{
+    margin-bottom: 0;
+}
+.mb20{
+    margin-bottom: 20px;
+}
+
+@media only screen and (max-width: 400px) {
+    .div-hide{ display: none !important; }
+}
+@media only screen and (min-width: 401px) {
+    .div-show{ display: none !important; }
+}
+@media only screen and (max-width: 400px) {
+    .mobile{ display: inline !important; }
+}
+@media only screen and (min-width: 500px) {
+    .desktop-hide{ display: none !important; }
+}
+
+

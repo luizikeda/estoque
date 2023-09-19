@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<div th:fragment="menu">
+    <aside class="main-sidebar">
+
+        <section class="sidebar">
+            <ul class="sidebar-menu" data-widget="tree">
+
+                <li class="header">Menu Principal</li>
+
+                <li class="treeview">
+                    <a href="#">
+                        <i class="fa fa-archive"></i> <span>Produto</span>
+                        <span class="pull-right-container">
+                            <i class="fa fa-angle-left pull-right"></i>
+                        </span>
+                    </a>
+                    <ul class="treeview-menu" id="listaprodMenuul">
+                        <li id="listaprodMenuli">
+                            <a th:href="@{/}">
+                                <span>Lista</span>
+                            </a>
+                        </li>
+                        <li id="formprodMenuli">
+                            <a th:href="@{/cadastro}">
+                                <span>Cadastro</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </section>
+    </aside>
+</div>
+
+</html>

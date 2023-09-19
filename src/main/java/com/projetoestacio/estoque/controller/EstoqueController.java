@@ -14,16 +14,21 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @RestController
-@RequestMapping(value = "/cadastro")
 public class EstoqueController {
 
     @Autowired
     ProdutoService produtoService;
 
-    @GetMapping
+    @RequestMapping
+    public ModelAndView produtoLista() {
+        ModelAndView mv = new ModelAndView("produto/list_produto");
+        return mv;
+    }
+
+    @GetMapping("/cadastro")
     public ModelAndView cadastro(HttpSession httpSession){
         ProdutoModel produtoModel = new ProdutoModel();
-        ModelAndView mv = new ModelAndView("form_produto");
+        ModelAndView mv = new ModelAndView("produto/form_produto");
         mv.addObject("produto", produtoModel);
         return mv;
     }

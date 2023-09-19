@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<header th:replace="fragments/headerimport.html :: headerimport"></header>
+<body class="hold-transition skin-blue sidebar-mini sidebar-collapse" id="body">
+<div class="wrapper">
+    <header th:replace="fragments/header.html :: header"></header>
+    <div th:replace="fragments/menu.html :: menu"></div>
+    <div class="content-wrapper">
+        <section class="content-header">
+            <h1> Cadastro Produto </h1>
+            <ol class="breadcrumb">
+                <li><a th:href="@{/}"><i class="fa fa-home"></i>Home</a></li>
+                <li><a th:href="@{/}">Produto</a></li>
+                <li class="active">Cadastro de Produto</li>
+            </ol>
+        </section>
+        <section class="content">
+            <form method="post" th:action="@{/cadastro/salvar}" th:object="${produto}">
+                <div class="box">
+                    <div class="box-body">
+                        <input type="hidden" id="produtoId" th:field="*{id}">
+                        <div class="row">
+                            <div class="form-group ros-req" id="divnomeproduto">
+                                <label for="nome" class="control-label">Nome</label>
+                                <input id="nome" class="form-control" type="text" placeholder="Nome"
+                                       th:field="*{nome}"/>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group ros-req" id="divdescricaoproduto">
+                                <label for="descricao" class="control-label">Descricao</label>
+                                <input id="descricao" class="form-control" type="text" placeholder="Descricao"
+                                       th:field="*{descricao}"/>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <a th:href="@{/comprador/listar}" class="btn btn-danger">Voltar</a>
+                                <button type="submit" class="btn btn-success">Salvar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </section>
+    </div>
+    <div class="control-sidebar-bg"></div>
+</div>
+<div th:replace="fragments/footerimport.html :: footerimport"></div>
+</body>
+</html>

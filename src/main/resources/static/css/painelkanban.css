@@ -1,0 +1,14 @@
+@media (min-width: 1028px) and (max-width: 1920px){
+    .progress-description {
+        font-size:16px !important;
+    }
+    .box-default {
+        height: 100%;
+    }
+    .box-body {
+        max-height: 850px;
+    }
+    .pedido-cancelado, .pedido-faturamento {
+        max-height: 427px;
+    }
+}
