@@ -6,10 +6,12 @@ import jakarta.persistence.*;
 import org.hibernate.annotations.GenericGenerator;
 
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "produto")
-public class ProdutoModel {
+public class Produto {
 
     @Id
     @Column(name = "id")
@@ -24,15 +26,15 @@ public class ProdutoModel {
     private CategoriaEnum categoria;
 
     private String estoque;
+
     private String sku;
 
     private String valor;
 
     private Date datavalidade;
 
-    /*@ManyToMany
-    @JoinColumn(name = "venda")
-    private Venda venda;*/
+    @ManyToMany(mappedBy = "produtos")
+    private Set<Venda> vendas = new HashSet<>();
 
 
     public String getId() {

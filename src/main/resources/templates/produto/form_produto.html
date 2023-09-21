@@ -36,6 +36,20 @@
                             </div>
                         </div>
                         <div class="row">
+                            <div class="form-group ros-req" id="divestoque">
+                                <label for="estoque" class="control-label">Quantidade De Estoque</label>
+                                <input id="estoque" class="form-control" type="text" placeholder="Estoque"
+                                       th:field="*{estoque}"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">Categoria</label>
+                            <select class="form-control" name="categoria">
+                                <option th:each="categoria : ${todasCategorias}" th:value="${categoria}"
+                                        th:text="${categoria.descricao}"></option>
+                            </select>
+                        </div>
+                        <div class="row">
                             <div class="col-md-12">
                                 <a th:href="@{/comprador/listar}" class="btn btn-danger">Voltar</a>
                                 <button type="submit" class="btn btn-success">Salvar</button>

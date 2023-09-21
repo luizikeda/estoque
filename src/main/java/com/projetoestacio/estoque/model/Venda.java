@@ -5,6 +5,8 @@ import jakarta.persistence.*;
 import org.hibernate.annotations.GenericGenerator;
 
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "venda")
@@ -17,9 +19,13 @@ public class Venda{
     private String id;
 
 
-    /*@ManyToMany
-    @JoinColumn(name = "produto")
-    private ProdutoModel produtoModel;*/
+    @ManyToMany
+    @JoinTable(
+            name = "produto_venda",
+            joinColumns = @JoinColumn(name = "venda_id"),
+            inverseJoinColumns = @JoinColumn(name = "produto_id")
+    )
+    private Set<Produto> produtos = new HashSet<>();
 
     private Date datavenda;
 
@@ -33,11 +39,5 @@ public class Venda{
         this.id = id;
     }
 
-    /*public ProdutoModel getProdutoModel() {
-        return produtoModel;
-    }
 
-    public void setProdutoModel(ProdutoModel produtoModel) {
-        this.produtoModel = produtoModel;
-    }*/
 }
