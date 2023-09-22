@@ -588,4 +588,95 @@ function informacoesProdutoLocal(id) {
     datatablepesquisa('#tblProdutoLocal');
 }
 
+function limpar()  {
+    window.location.reload();
+}
 
+// Variável de controle para evitar chamadas em loop
+let filtrando = false;
+
+function filtrar() {
+    // Verifique se a função já está sendo executada antes de iniciar uma nova execução
+    if (filtrando) {
+        return;
+    }
+
+    filtrando = true; // Marque a função como em execução
+
+    let data = {
+        cpf: $('#cpf').val(),
+        email: $('#email').val(),
+        nome: $('#nome').val(),
+    };
+
+    // Envie a requisição GET para a rota "/cliente/filtrar" com os parâmetros de filtro.
+    $.ajax({
+        url: '/cliente/filtrar',
+        type: 'GET',
+        data: data, // Use a variável "data" ao invés de { cpf: cpf, email: email }
+        success: function (data) {
+            // Trate a resposta do servidor e preencha a tabela com os dados filtrados.
+            let tabela = $('#tabelaClientes').DataTable({
+                destroy: true, // Destrua a tabela atual antes de recriá-la.
+                data: data.data, // Use os dados filtrados retornados pelo servidor.
+                columns: [
+                    { data: 'cpf' },
+                    { data: 'email' },
+                    { data: 'nome' },
+                ],
+                language: {
+                    // Defina as configurações de idioma, se necessário.
+                    // ...
+                    "sEmptyTable": "Nenhum registro encontrado",
+                    "sInfo": "Mostrando de _START_ até _END_ de _TOTAL_ registros",
+                    "sInfoEmpty": "Mostrando 0 até 0 de 0 registros",
+                    "sInfoFiltered": "(Filtrados de _MAX_ registros)",
+                    "sInfoPostFix": "",
+                    "sInfoThousands": ".",
+                    "sLengthMenu": "_MENU_ resultados por página",
+                    "sLoadingRecords": "Carregando...",
+                    "sProcessing": "Processando...",
+                    "sZeroRecords": "Nenhum registro encontrado",
+                    "sSearch": "Pesquisar: ",
+                    "oPaginate": {
+                        "sNext": "Próximo",
+                        "sPrevious": "Anterior",
+                        "sFirst": "Primeiro",
+                        "sLast": "Último"
+                    },
+                    "oAria": {
+                        "sSortAscending": ": Ordenar colunas de forma ascendente",
+                        "sSortDescending": ": Ordenar colunas de forma descendente"
+                    }
+                },
+            });
+
+            filtrando = false; // Marque a função como não em execução após o sucesso da requisição
+        },
+        error: function (error) {
+            // Trate o erro, se necessário.
+            console.error(error);
+            filtrando = false; // Marque a função como não em execução após o erro na requisição
+        }
+    });
+
+    function excluirProduto(id) {
+        if (confirm("Tem certeza que deseja excluir este produto?")) {
+            // Fazer uma requisição para excluir o produto com o ID fornecido.
+            $.ajax({
+                url: '/produto/excluir',
+                type: 'POST', // Ou 'DELETE', dependendo da sua API
+                data: { id: id },
+                success: function (response) {
+                    // Produto excluído com sucesso, você pode atualizar a lista de produtos ou fazer qualquer outra ação necessária.
+                    alert("Produto excluído com sucesso!");
+                    // Atualizar a lista de produtos, recarregar a página ou realizar outras ações necessárias.
+                },
+                error: function (error) {
+                    // Tratar o erro, se necessário.
+                    console.error("Erro ao excluir produto:", error);
+                }
+            });
+        }
+    }
+}

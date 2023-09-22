@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 @Service
 public class ProdutoService {
 
-    @Autowired
     ProdutoDAO produtoDAO;
 
     public void salvar(Produto produtoModel) throws Exception {

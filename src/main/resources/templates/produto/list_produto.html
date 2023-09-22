@@ -40,16 +40,21 @@
                             <input type="text" class="form-control pull-right" id="textdescricao"
                                    placeholder="Digite a Descrição que deseja consultar">
                         </div>
-                        <div class="col-sm-4">
-                            <div class="text-right" style="margin-top:20px;">
-                                <button id="btnPesquisar" type="button"
-                                        class="btn btn-primary" onclick="atualizarProdutos()">Pesquisar
-                                </button>
-                                <button id="btnLimpar" type="button"
-                                        class="btn btn-danger" onclick="limpar()">Limpar
-                                </button>
+                        <div class="col-sm-3">
+                            <div style="margin-top: 11px;">
+                                <div class="btn-group">
+                                    <button onclick="filtrar()"
+                                            style="margin-top: 14px; margin-bottom:14px;"
+                                            type="button"
+                                            class="btn btn-primary">Pesquisar
+                                    </button>
+                                    <button onclick="limpar()"
+                                            style="margin-top: 14px; margin-bottom:14px; margin-left:15px;"
+                                            type="button"
+                                            class="btn btn-danger">Limpar pesquisa
+                                    </button>
+                                </div>
                             </div>
-                        </div>
                     </div>
                 </div>
 
@@ -89,5 +94,6 @@
 <script th:src="@{bower_components/select2/dist/js/select2.full.min.js}"></script>
 <script th:src="@{bower_components/datatables.net/js/jquery.dataTables.min.js}"></script>
 <script th:src="@{bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js}"></script>
+<script th:src="@{/frontJS/lista_cliente.js}"></script>
 </body>
 </html>

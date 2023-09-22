@@ -1,24 +1,33 @@
 package com.projetoestacio.estoque.controller;
 
+import com.projetoestacio.estoque.dto.ProdutoDTO;
 import com.projetoestacio.estoque.model.Produto;
 import com.projetoestacio.estoque.model.enums.CategoriaEnum;
+import com.projetoestacio.estoque.repository.ProdutoDAO;
 import com.projetoestacio.estoque.service.ProdutoService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.validation.Errors;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 @RestController
 public class EstoqueController {
 
     @Autowired
     ProdutoService produtoService;
+
+    @Autowired
+    ProdutoDAO produtoDTO;
+
+    @Autowired
+    ProdutoDAO produtoDAO;
 
     @RequestMapping
     public ModelAndView produtoLista() {
@@ -51,5 +60,25 @@ public class EstoqueController {
     @ModelAttribute("todasCategorias")
     public List<CategoriaEnum> todasCategorias() {
         return Arrays.asList(CategoriaEnum.values());
+    }
+
+    @GetMapping(value = "/estoque")
+            public ResponseEntity listarProdutos(@RequestParam("sku") String sku, @RequestParam("nome") String nome) {
+        try {
+            List<ProdutoDTO> produtoDTOList = new ArrayList<>();
+            List<Object[]> objects = produtoDAO.getListarProdutos(sku, nome);
+            for (Object[] obj : objects) {
+                ProdutoDTO iDto = new ProdutoDTO(obj);
+                produtoDTOList.add(iDto);
+            }
+            Map<String, Object> json = new LinkedHashMap<>();
+            json.put("data", produtoDTO);
+
+            return new ResponseEntity(json, HttpStatus.OK);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 }
