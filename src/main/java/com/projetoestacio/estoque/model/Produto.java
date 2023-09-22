@@ -100,4 +100,12 @@ public class Produto {
     public void setEstoque(String estoque) {
         this.estoque = estoque;
     }
+
+    public Set<Venda> getVendas() {
+        return vendas;
+    }
+
+    public void setVendas(Set<Venda> vendas) {
+        this.vendas = vendas;
+    }
 }
