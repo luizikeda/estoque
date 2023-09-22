@@ -27,18 +27,13 @@
                     <div class="row">
                         <div class="col-sm-1">
                             <label class="control-sidebar-subheading">SKU</label>
-                            <input type="text" class="form-control pull-right" id="textsku"
+                            <input type="text" class="form-control pull-right" id="sku"
                                    placeholder="Digite o SKU que deseja consultar">
                         </div>
-                        <div class="col-sm-2">
-                            <label class="control-sidebar-subheading">Código de Acesso</label>
-                            <input type="text" class="form-control pull-right" id="textcodigoacesso"
-                                   placeholder="Digite o Código de Barras que deseja consultar">
-                        </div>
                         <div class="col-sm-4">
-                            <label class="control-sidebar-subheading">Descrição</label>
-                            <input type="text" class="form-control pull-right" id="textdescricao"
-                                   placeholder="Digite a Descrição que deseja consultar">
+                            <label class="control-sidebar-subheading">Nome</label>
+                            <input type="text" class="form-control pull-right" id="nome"
+                                   placeholder="Digite o Nome que deseja consultar">
                         </div>
                         <div class="col-sm-3">
                             <div style="margin-top: 11px;">
@@ -63,11 +58,15 @@
                     <table id="tblProdutoLista" class="table table-bordered table-striped">
                         <thead>
                         <tr>
-                            <th width="10%">SKU</th>
-                            <th width="40%">Descrição</th>
-                            <th width="40%">Descrição Completa</th>
-                            <th width="5%" class="text-right">Editar</th>
-                            <th width="5%" class="text-right">Visualizar</th>
+                            <th>Sku</th>
+                            <th>Nome</th>
+                            <th>Valor</th>
+                            <th>Data Validade</th>
+                            <th>Categoria</th>
+                            <th>Descrição</th>
+                            <th>Estoque</th>
+                            <th>Preço Unitario</th>
+                            <th class="text-right">Editar</th>
                         </tr>
                         </thead>
                         <tbody id="tbProdutoLista">
