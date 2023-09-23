@@ -3,8 +3,9 @@ package com.projetoestacio.estoque.model.enums;
 public enum TipoPagamentoEmum {
 
     CREDITO("Credito"),
-    PENDENTE("Pendente"),
-    CANCELADA("Cancelada");
+    DEBITO("Débito"),
+    PIX("PIX"),
+    DINHEIRO("Dinheiro");
 
     private String descricao;
 
