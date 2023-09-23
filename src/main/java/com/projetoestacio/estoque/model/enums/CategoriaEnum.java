@@ -4,7 +4,6 @@ public enum CategoriaEnum {
     ELETRONICOS("Eletronicos"),
     BEBIDA("Bebida"),
     ALIMENTO("Alimetos"),
-
     LIMPEZA("Limpeza"),
     OUTROS("Outros");
 

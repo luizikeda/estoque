@@ -1,14 +1,14 @@
 package com.projetoestacio.estoque.model.enums;
 
-public enum StatusVendaEmum {
+public enum TipoPagamentoEmum {
 
-    REALIZADA("Realizada"),
+    CREDITO("Credito"),
     PENDENTE("Pendente"),
     CANCELADA("Cancelada");
 
     private String descricao;
 
-    StatusVendaEmum(String descricao) {
+    TipoPagamentoEmum(String descricao) {
         this.descricao = descricao;
     }
 

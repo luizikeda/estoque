@@ -1,6 +1,6 @@
 package com.projetoestacio.estoque.model;
 
-import com.projetoestacio.estoque.model.enums.StatusVendaEmum;
+import com.projetoestacio.estoque.model.enums.TipoPagamentoEmum;
 import jakarta.persistence.*;
 import org.hibernate.annotations.GenericGenerator;
 
@@ -29,7 +29,7 @@ public class Venda{
 
     private Date datavenda;
 
-    private StatusVendaEmum statusVendaEnum;
+    private TipoPagamentoEmum TipoPagamentoEnum;
 
     public String getId() {
         return id;
