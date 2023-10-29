@@ -2,6 +2,7 @@ package com.projetoestacio.estoque.controller;
 
 import com.projetoestacio.estoque.dto.ProdutoDTO;
 import com.projetoestacio.estoque.dto.filter.ProdutoFilter;
+import com.projetoestacio.estoque.interfaces.IProdutoService;
 import com.projetoestacio.estoque.model.Produto;
 import com.projetoestacio.estoque.model.enums.CategoriaEnum;
 import com.projetoestacio.estoque.repository.ProdutoDAO;
@@ -24,7 +25,7 @@ import java.util.*;
 public class EstoqueController {
 
     @Autowired
-    ProdutoService produtoService;
+    IProdutoService _produtoService;
 
     @Autowired
     ProdutoDAO produtoDAO;
@@ -36,7 +37,7 @@ public class EstoqueController {
     }
 
     @GetMapping("/cadastro")
-    public ModelAndView cadastro(HttpSession httpSession){
+    public ModelAndView cadastro(HttpSession httpSession) {
         Produto produtoModel = new Produto();
         ModelAndView mv = new ModelAndView("produto/form_produto");
         mv.addObject("produto", produtoModel);
@@ -50,7 +51,7 @@ public class EstoqueController {
             return "form_produto";
 
         try {
-            produtoService.salvar(produtoModel);
+            _produtoService.salvar(produtoModel);
             return "redirect:/estoque/cadastro";
         } catch (Exception e) {
             return "form_produto";
@@ -64,19 +65,24 @@ public class EstoqueController {
 
     @GetMapping("/filtrar")
     public ResponseEntity findByCamposByFilial(ProdutoFilter filter, HttpServletRequest request) throws ParseException {
-        Map<String, Object> estruturaDTOs = produtoService.findByCampos(filter, request);
+        Map<String, Object> estruturaDTOs = _produtoService.findByCampos(filter, request);
         return ResponseEntity.ok(estruturaDTOs);
     }
 
     @GetMapping("/listaProdutos")
     public ResponseEntity<List<Produto>> todosProdutos() {
 
-        List<Produto> ListaProdutos = produtoService.listaProdutos();
-        if (ListaProdutos .stream().count() > 0){
+        List<Produto> ListaProdutos = _produtoService.listaProdutos();
+        if (ListaProdutos.stream().count() > 0)
             return new ResponseEntity<>(ListaProdutos, HttpStatus.OK);
-        }
-        else {
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
     }
+
+    @GetMapping("/produto/{sku}")
+    public ResponseEntity<Produto> todosProdutos(@RequestParam String sku) {
+        Produto produto = _produtoService.BuscaProdutoById(sku);
+        if (produto == null) return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(produto, HttpStatus.OK);
+    }
+
 }

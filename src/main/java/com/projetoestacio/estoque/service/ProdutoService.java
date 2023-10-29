@@ -1,6 +1,8 @@
 package com.projetoestacio.estoque.service;
+
 import com.projetoestacio.estoque.dto.ProdutoDTO;
 import com.projetoestacio.estoque.dto.filter.ProdutoFilter;
+import com.projetoestacio.estoque.interfaces.IProdutoService;
 import com.projetoestacio.estoque.model.Produto;
 import com.projetoestacio.estoque.repository.ProdutoDAO;
 import jakarta.servlet.http.HttpServletRequest;
@@ -11,6 +13,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+
 import java.text.ParseException;
 import java.util.HashMap;
 import java.util.List;
@@ -18,7 +21,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
-public class ProdutoService {
+public class ProdutoService implements IProdutoService {
 
     @Autowired
     ProdutoDAO produtoDAO;
@@ -93,8 +96,10 @@ public class ProdutoService {
         return start / length;
     }
 
-    public List<Produto> listaProdutos(){
+    public List<Produto> listaProdutos() {
         return produtoDAO.findAll();
     }
+
+    public Produto BuscaProdutoById(String sku) {return produtoDAO.getById(sku);}
 
 }
