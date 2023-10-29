@@ -69,7 +69,14 @@ public class EstoqueController {
     }
 
     @GetMapping("/listaProdutos")
-    public ResponseEntity todosProdutos() {
-        return ResponseEntity.ok(produtoService.listaProdutos());
+    public ResponseEntity<List<Produto>> todosProdutos() {
+
+        List<Produto> ListaProdutos = produtoService.listaProdutos();
+        if (ListaProdutos .stream().count() > 0){
+            return new ResponseEntity<>(ListaProdutos, HttpStatus.OK);
+        }
+        else {
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
     }
 }
