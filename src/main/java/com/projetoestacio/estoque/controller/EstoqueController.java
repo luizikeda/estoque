@@ -67,4 +67,9 @@ public class EstoqueController {
         Map<String, Object> estruturaDTOs = produtoService.findByCampos(filter, request);
         return ResponseEntity.ok(estruturaDTOs);
     }
+
+    @GetMapping("/listaProdutos")
+    public ResponseEntity todosProdutos() {
+        return ResponseEntity.ok(produtoService.listaProdutos());
+    }
 }

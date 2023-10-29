@@ -92,5 +92,9 @@ public class ProdutoService {
     private int currentPage(int start, int length) {
         return start / length;
     }
-}
 
+    public List<Produto> listaProdutos(){
+        return produtoDAO.findAll();
+    }
+
+}
