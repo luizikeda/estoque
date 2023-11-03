@@ -40,4 +40,12 @@ public class Venda{
     }
 
 
+    public void adicionarProduto(Produto produto) {
+        produtos.add(produto);
+    }
+
+    public void removerProduto(Produto produto) {
+        produtos.remove(produto);
+
+    }
 }

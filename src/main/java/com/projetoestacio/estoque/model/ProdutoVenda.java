@@ -5,7 +5,7 @@ import org.hibernate.annotations.GenericGenerator;
 
 @Entity
 @Table(name = "produto_venda")
-public class PodutoVenda {
+public class ProdutoVenda {
 
     @Id
     @GeneratedValue(generator = "system-uuid")
