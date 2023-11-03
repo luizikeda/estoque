@@ -1,6 +1,7 @@
 package com.projetoestacio.estoque.controller;
 
-import com.projetoestacio.estoque.interfaces.IVendasService;
+import com.projetoestacio.estoque.dto.ProdutoQuantidadeRequest;
+import com.projetoestacio.estoque.interfaces.*;
 import com.projetoestacio.estoque.model.Venda;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -20,14 +21,14 @@ public class VendasController{
     }
 
     // Adicionar um produto a uma venda:
-    @PostMapping("/{vendaId}/adicionarProduto/{produtoId}")
-    public Venda adicionarProdutoNaVenda(@PathVariable String vendaId, @PathVariable String produtoId) {
-        return vendaService.adicionarProdutoNaVenda(vendaId, produtoId);
+    @PostMapping("/{vendaId}/adicionarProduto")
+    public Venda adicionarProdutoNaVenda(@PathVariable String vendaId, @RequestBody ProdutoQuantidadeRequest produtoQuantidadeRequest) {
+        return vendaService.adicionarProdutoNaVenda(vendaId, produtoQuantidadeRequest);
     }
 
     // Remover um produto de uma venda:
-    @DeleteMapping("/{vendaId}/removerProduto/{produtoId}")
-    public Venda removerProdutoDaVenda(@PathVariable String vendaId, @PathVariable String produtoId) {
+    @DeleteMapping("/{vendaId}/removerProduto")
+    public Venda removerProdutoDaVenda(@PathVariable String vendaId, @RequestBody String produtoId) {
         return vendaService.removerProdutoDaVenda(vendaId, produtoId);
     }
 

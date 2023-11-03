@@ -100,6 +100,9 @@ public class ProdutoService implements IProdutoService {
         return produtoDAO.findAll();
     }
 
-    public Produto BuscaProdutoById(String sku) {return produtoDAO.getById(sku);}
+    public Produto BuscaProdutoBySku(String sku) {
+        List<Produto> produtos = produtoDAO.findAll();
+        return produtos.stream().filter(s -> s.getSku().equals(sku)).findFirst().orElse(null);
+    }
 
 }

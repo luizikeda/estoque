@@ -40,7 +40,8 @@ public class Venda{
     }
 
 
-    public void adicionarProduto(Produto produto) {
+    public void adicionarProduto(Produto produto, int quantidade) {
+        produto.setEstoque(String.valueOf(quantidade));
         produtos.add(produto);
     }
 

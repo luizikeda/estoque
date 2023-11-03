@@ -1,9 +1,12 @@
 package com.projetoestacio.estoque.service;
 
+import com.projetoestacio.estoque.dto.ProdutoQuantidadeRequest;
 import com.projetoestacio.estoque.interfaces.IVendasService;
 import com.projetoestacio.estoque.model.Produto;
+import com.projetoestacio.estoque.model.ProdutoVenda;
 import com.projetoestacio.estoque.model.Venda;
 import com.projetoestacio.estoque.repository.ProdutoDAO;
+import com.projetoestacio.estoque.repository.ProdutoVendaDAO;
 import com.projetoestacio.estoque.repository.VendasDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -17,19 +20,23 @@ public class VendasService implements IVendasService {
     VendasDAO _vendasDAO;
     @Autowired
     ProdutoDAO produtoDAO;
+    @Autowired
+    ProdutoVendaDAO _produtovendaDAO;
+
     public Venda criarVenda(Venda venda) {
         return _vendasDAO.save(venda);
     }
 
-    public Venda adicionarProdutoNaVenda(String vendaId, String produtoId) {
+    public Venda adicionarProdutoNaVenda(String vendaId, ProdutoQuantidadeRequest produtoQuantidadeRequest) {
         Venda venda = _vendasDAO.findById(vendaId).orElse(null);
-        Produto produto = produtoDAO.findById(produtoId).orElse(null);
-
+        Produto produto = produtoDAO.findById(produtoQuantidadeRequest.getProdutoId()).orElse(null);
+        if(Integer.parseInt(produto.getEstoque())<produtoQuantidadeRequest.getQuantidade())
+            return null;
         if (venda != null && produto != null) {
-            venda.adicionarProduto(produto);
-            return _vendasDAO.save(venda);
+            ProdutoVenda produtovenda = new ProdutoVenda(produto, venda, produtoQuantidadeRequest.getQuantidade());
+            _produtovendaDAO.save(produtovenda);
+            return venda;
         } else {
-            // Lida com erros ou retorna null/lança exceção, dependendo da sua lógica de negócios
             return null;
         }
     }
@@ -38,11 +45,13 @@ public class VendasService implements IVendasService {
         Venda venda = _vendasDAO.findById(vendaId).orElse(null);
         Produto produto = produtoDAO.findById(produtoId).orElse(null);
 
-        if (venda != null && produto != null) {
-            venda.removerProduto(produto);
-            return _vendasDAO.save(venda);
+       List<ProdutoVenda> produtosVendas = _produtovendaDAO.findByProdutoVenda(produto,venda);
+       ProdutoVenda produtoVenda = produtosVendas.stream().findFirst().orElse(null);
+
+        if (produtoVenda!=null) {
+           _produtovendaDAO.delete(produtoVenda);
+           return venda;
         } else {
-            // Lida com erros ou retorna null/lança exceção, dependendo da sua lógica de negócios
             return null;
         }
     }

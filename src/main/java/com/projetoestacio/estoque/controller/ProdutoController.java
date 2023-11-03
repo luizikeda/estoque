@@ -1,7 +1,7 @@
 package com.projetoestacio.estoque.controller;
 
 import com.projetoestacio.estoque.dto.filter.ProdutoFilter;
-import com.projetoestacio.estoque.interfaces.IProdutoService;
+import com.projetoestacio.estoque.interfaces.*;
 import com.projetoestacio.estoque.model.Produto;
 import com.projetoestacio.estoque.model.enums.CategoriaEnum;
 import com.projetoestacio.estoque.repository.ProdutoDAO;
@@ -78,9 +78,9 @@ public class ProdutoController {
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
-    @GetMapping("/produto/{sku}")
-    public ResponseEntity<Produto> todosProdutos(@RequestParam String sku) {
-        Produto produto = _produtoService.BuscaProdutoById(sku);
+    @GetMapping("/produto")
+    public ResponseEntity<Produto> todosProdutos(String sku) {
+        Produto produto = _produtoService.BuscaProdutoBySku(sku);
         if (produto == null) return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         return new ResponseEntity<>(produto, HttpStatus.OK);
     }

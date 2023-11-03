@@ -12,5 +12,5 @@ public interface IProdutoService {
     void salvar(Produto produtoModel)throws Exception;
     public Map<String, Object> findByCampos(ProdutoFilter filter, HttpServletRequest request) throws ParseException;
     public List<Produto> listaProdutos();
-    public Produto BuscaProdutoById(String sku);
+    public Produto BuscaProdutoBySku(String sku);
 }

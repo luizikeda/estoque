@@ -20,6 +20,14 @@ public class ProdutoVenda {
     @JoinColumn(name = "venda_id")
     private Venda venda;
 
+    private int quantidade;
+
+    public ProdutoVenda(Produto produto, Venda venda, int quantidade) {
+        setProduto(produto);
+        setQuantidade(quantidade);
+        setVenda(venda);
+    }
+
     public String getId() {
         return id;
     }
@@ -43,4 +51,14 @@ public class ProdutoVenda {
     public void setVenda(Venda venda) {
         this.venda = venda;
     }
+
+    public int getQuantidade() {
+        return quantidade;
+    }
+
+    public void setQuantidade(int quantidade) {
+        this.quantidade = quantidade;
+    }
+
+
 }
