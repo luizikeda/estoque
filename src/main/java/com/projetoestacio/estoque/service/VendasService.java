@@ -1,7 +1,6 @@
 package com.projetoestacio.estoque.service;
 
 import com.projetoestacio.estoque.dto.ProdutoQuantidadeRequest;
-import com.projetoestacio.estoque.interfaces.IVendasService;
 import com.projetoestacio.estoque.model.Produto;
 import com.projetoestacio.estoque.model.ProdutoVenda;
 import com.projetoestacio.estoque.model.Venda;
@@ -15,7 +14,7 @@ import java.awt.print.Pageable;
 import java.util.List;
 
 @Service
-public class VendasService implements IVendasService {
+public class VendasService  {
     @Autowired
     VendasDAO _vendasDAO;
     @Autowired

@@ -2,7 +2,6 @@ package com.projetoestacio.estoque.service;
 
 import com.projetoestacio.estoque.dto.ProdutoDTO;
 import com.projetoestacio.estoque.dto.filter.ProdutoFilter;
-import com.projetoestacio.estoque.interfaces.IProdutoService;
 import com.projetoestacio.estoque.model.Produto;
 import com.projetoestacio.estoque.repository.ProdutoDAO;
 import jakarta.servlet.http.HttpServletRequest;
@@ -21,7 +20,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
-public class ProdutoService implements IProdutoService {
+public class ProdutoService {
 
     @Autowired
     ProdutoDAO produtoDAO;

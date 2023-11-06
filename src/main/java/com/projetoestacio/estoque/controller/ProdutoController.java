@@ -1,10 +1,10 @@
 package com.projetoestacio.estoque.controller;
 
 import com.projetoestacio.estoque.dto.filter.ProdutoFilter;
-import com.projetoestacio.estoque.interfaces.*;
 import com.projetoestacio.estoque.model.Produto;
 import com.projetoestacio.estoque.model.enums.CategoriaEnum;
 import com.projetoestacio.estoque.repository.ProdutoDAO;
+import com.projetoestacio.estoque.service.ProdutoService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +25,7 @@ import java.util.Map;
 public class ProdutoController {
 
     @Autowired
-    IProdutoService _produtoService;
+    ProdutoService _produtoService;
 
     @Autowired
     ProdutoDAO produtoDAO;
