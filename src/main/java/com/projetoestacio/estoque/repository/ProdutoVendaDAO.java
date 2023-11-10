@@ -20,6 +20,4 @@ public interface ProdutoVendaDAO extends JpaRepository<ProdutoVenda, String> {
     Page<Object[]> getListarVendasPorTipoPagamento(
             @Param("tipoPagamento") String tipoPagamento,
             Pageable pageable);
-
-    List<ProdutoVenda> findByProdutoVenda(Produto produto, Venda venda);
 }

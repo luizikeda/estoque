@@ -12,7 +12,7 @@ import java.util.List;
 public class VendasController{
 
     @Autowired
-    private IVendasService vendaService;
+     IVendasService vendaService;
 
     // Criar nova venda:
     @PostMapping
