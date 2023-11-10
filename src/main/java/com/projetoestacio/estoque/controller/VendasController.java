@@ -26,12 +26,6 @@ public class VendasController{
         return vendaService.adicionarProdutoNaVenda(vendaId, produtoQuantidadeRequest);
     }
 
-    // Remover um produto de uma venda:
-    @DeleteMapping("/{vendaId}/removerProduto")
-    public Venda removerProdutoDaVenda(@PathVariable String vendaId, @RequestBody String produtoId) {
-        return vendaService.removerProdutoDaVenda(vendaId, produtoId);
-    }
-
     // Obter uma venda por ID:
     @GetMapping("/{id}")
     public Venda obterVendaPorId(@PathVariable String id) {

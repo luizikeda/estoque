@@ -11,8 +11,6 @@ public interface IVendasService {
 
     Venda adicionarProdutoNaVenda(String vendaId, ProdutoQuantidadeRequest produtoQuantidadeRequest);
 
-    Venda removerProdutoDaVenda(String vendaId, String produtoId);
-
     Venda obterVendaPorId(String id);
 
     List<Venda> listarVendas();

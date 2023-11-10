@@ -39,21 +39,7 @@ public class VendasService implements IVendasService {
         } else {
             return null;
         }
-    }
 
-    public Venda removerProdutoDaVenda(String vendaId, String produtoId) {
-        Venda venda = _vendasDAO.findById(vendaId).orElse(null);
-        Produto produto = produtoDAO.findById(produtoId).orElse(null);
-
-       List<ProdutoVenda> produtosVendas = _produtovendaDAO.findByProdutoVenda(produto,venda);
-       ProdutoVenda produtoVenda = produtosVendas.stream().findFirst().orElse(null);
-
-        if (produtoVenda!=null) {
-           _produtovendaDAO.delete(produtoVenda);
-           return venda;
-        } else {
-            return null;
-        }
     }
 
     public Venda obterVendaPorId(String id) {
