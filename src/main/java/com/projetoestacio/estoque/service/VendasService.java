@@ -1,6 +1,7 @@
 package com.projetoestacio.estoque.service;
 
 import com.projetoestacio.estoque.dto.ProdutoQuantidadeRequest;
+import com.projetoestacio.estoque.interfaces.IVendasService;
 import com.projetoestacio.estoque.model.Produto;
 import com.projetoestacio.estoque.model.ProdutoVenda;
 import com.projetoestacio.estoque.model.Venda;
@@ -14,7 +15,7 @@ import java.awt.print.Pageable;
 import java.util.List;
 
 @Service
-public class VendasService  {
+public class VendasService implements IVendasService {
     @Autowired
     VendasDAO _vendasDAO;
     @Autowired
@@ -38,21 +39,7 @@ public class VendasService  {
         } else {
             return null;
         }
-    }
 
-    public Venda removerProdutoDaVenda(String vendaId, String produtoId) {
-        Venda venda = _vendasDAO.findById(vendaId).orElse(null);
-        Produto produto = produtoDAO.findById(produtoId).orElse(null);
-
-       List<ProdutoVenda> produtosVendas = _produtovendaDAO.findByProdutoVenda(produto,venda);
-       ProdutoVenda produtoVenda = produtosVendas.stream().findFirst().orElse(null);
-
-        if (produtoVenda!=null) {
-           _produtovendaDAO.delete(produtoVenda);
-           return venda;
-        } else {
-            return null;
-        }
     }
 
     public Venda obterVendaPorId(String id) {

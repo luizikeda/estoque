@@ -1,8 +1,8 @@
 package com.projetoestacio.estoque.controller;
 
 import com.projetoestacio.estoque.dto.ProdutoQuantidadeRequest;
+import com.projetoestacio.estoque.interfaces.*;
 import com.projetoestacio.estoque.model.Venda;
-import com.projetoestacio.estoque.service.VendasService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
@@ -12,8 +12,7 @@ import java.util.List;
 public class VendasController{
 
     @Autowired
-    VendasService vendaService;
-
+    private IVendasService vendaService;
 
     // Criar nova venda:
     @PostMapping
@@ -25,12 +24,6 @@ public class VendasController{
     @PostMapping("/{vendaId}/adicionarProduto")
     public Venda adicionarProdutoNaVenda(@PathVariable String vendaId, @RequestBody ProdutoQuantidadeRequest produtoQuantidadeRequest) {
         return vendaService.adicionarProdutoNaVenda(vendaId, produtoQuantidadeRequest);
-    }
-
-    // Remover um produto de uma venda:
-    @DeleteMapping("/{vendaId}/removerProduto")
-    public Venda removerProdutoDaVenda(@PathVariable String vendaId, @RequestBody String produtoId) {
-        return vendaService.removerProdutoDaVenda(vendaId, produtoId);
     }
 
     // Obter uma venda por ID:

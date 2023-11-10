@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Leitor de Código de Barras</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        #reader-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 20px;
+        }
+
+        #startButton, #clearButton {
+            background-color: #4caf50;
+            color: white;
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            margin: 10px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        #result {
+            margin-top: 20px;
+            font-size: 18px;
+        }
+
+        #productDetails {
+            display: none;
+            margin-top: 20px;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 80%;
+            margin: 20px auto;
+            background-color: white;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #4caf50;
+            color: white;
+        }
+
+        #camera-preview {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Leitor de Código de Barras</h1>
+    <div id="reader-container">
+        <button id="startButton">Iniciar Leitura</button>
+        <button id="clearButton" style="display: none;">Limpar Tabela</button>
+    </div>
+    <div id="result"></div>
+    <div id="productDetails">
+        <h2>Detalhes do Produto</h2>
+        <table id="productTable">
+            <tr>
+                <th>ID</th>
+                <th>Nome</th>
+                <th>Descrição</th>
+                <th>Categoria</th>
+                <th>Estoque</th>
+                <th>SKU</th>
+                <th>Valor</th>
+                <th>Data de Validade</th>
+            </tr>
+            <!-- Linha de dados será inserida dinamicamente -->
+        </table>
+    </div>
+    <div id="camera-preview"></div>
+
+    <script src="quagga.min.js"></script>
+    <script>
+        const startButton = document.getElementById('startButton');
+        const clearButton = document.getElementById('clearButton');
+        const resultDiv = document.getElementById('result');
+        const productDetailsDiv = document.getElementById('productDetails');
+        const productTable = document.getElementById('productTable');
+        const cameraPreview = document.getElementById('camera-preview');
+
+        Quagga.init({
+            inputStream: {
+                name: 'Live',
+                type: 'LiveStream',
+                target: cameraPreview,
+                constraints: {
+                    width: 640,
+                    height: 480,
+                },
+            },
+            decoder: {
+                readers: ['code_128_reader'],
+            },
+        }, function (err) {
+            if (err) {
+                console.error(err);
+                return;
+            }
+
+            startButton.addEventListener('click', () => {
+                Quagga.start();
+                startButton.disabled = true;
+                clearButton.style.display = 'none';
+            });
+
+            Quagga.onDetected(async (result) => {
+                const code = result.codeResult.code;
+                resultDiv.innerHTML = `Código de barras encontrado: ${code}`;
+                const shouldSearch = confirm('Deseja procurar este código?');
+                if (shouldSearch) {
+                    try {
+                        const response = await fetch(`http://localhost:8081/estoque/produto?sku=${code}`, {
+                            method: 'GET',
+                            mode: 'cors',
+                        });
+
+                        const data = await response.json();
+
+                        // Preencher a tabela com os detalhes do produto
+                        renderProductDetails(data);
+                        clearButton.style.display = 'inline'; // Exibir botão de limpar tabela
+                    } catch (error) {
+                        console.error('Erro na requisição:', error);
+                    }
+                }
+            });
+
+            clearButton.addEventListener('click', () => {
+                clearTable();
+                clearButton.style.display = 'none'; // Esconder botão de limpar tabela
+                Quagga.start();
+            });
+        });
+
+        function renderProductDetails(product) {
+            // Limpar a tabela
+            clearTable();
+
+            
+            // Adicionar dados
+            const dataRow = productTable.insertRow(1);
+            for (const key in product) {
+                const dataCell = dataRow.insertCell();
+                dataCell.textContent = product[key];
+            }
+
+            productDetailsDiv.style.display = 'block';
+        }
+
+        function clearTable() {
+            productTable.innerHTML = '<tr><th>ID</th><th>Nome</th><th>Descrição</th><th>Categoria</th><th>Estoque</th><th>SKU</th><th>Valor</th><th>Data de Validade</th></tr>';
+            productDetailsDiv.style.display = 'none';
+        }
+    </script>
+</body>
+</html>
