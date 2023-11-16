@@ -110,36 +110,36 @@ public class ProdutoService implements IProdutoService {
 
     public Produto AtualizaProduto(String produtoid, AtualizarProdutoRequest ProdutoRequest) throws Exception {
         var produtos = produtoDAO.findAll();
-        if (produtos.stream().count()>0) {
-            var produto=produtos.stream().filter(s->s.getId().equals(produtoid)).findFirst().orElse(null);
-            if (produto!=null){
-
-                if (ProdutoRequest.getNome()!=null) {
-                    produto.setNome(ProdutoRequest.getNome());
-                }
-                if (ProdutoRequest.getDescricao()!= null) {
-                    produto.setDescricao(ProdutoRequest.getDescricao());
-                }
-                if (ProdutoRequest.getCategoria() != null) {
-                    produto.setCategoria(ProdutoRequest.getCategoria());
-                }
-                if (ProdutoRequest.getEstoque() != null) {
-                    produto.setEstoque(ProdutoRequest.getEstoque());
-                }
-
-                if (ProdutoRequest.getValor() != null) {
-                    produto.setValor(ProdutoRequest.getValor());
-                }
-                if (ProdutoRequest.getDatavalidade() != null) {
-                    produto.setDatavalidade(ProdutoRequest.getDatavalidade());
-                }
-              produtoDAO.save(produto);
-              return produto;
-            }
-
-
+        if (produtos.isEmpty()) {
+            throw new Exception("Lista de produtos vazia");
         }
-        throw new Exception("Lista de produtos vazia");
+
+        var produto = produtos.stream().filter(s -> s.getId().equals(produtoid)).findFirst().orElse(null);
+        if (produto == null) {
+            throw new Exception("Produto não encontrado com o ID: " + produtoid);
+        }
+
+        if (ProdutoRequest.getNome() != null) {
+            produto.setNome(ProdutoRequest.getNome());
+        }
+        if (ProdutoRequest.getDescricao() != null) {
+            produto.setDescricao(ProdutoRequest.getDescricao());
+        }
+        if (ProdutoRequest.getCategoria() != null) {
+            produto.setCategoria(ProdutoRequest.getCategoria());
+        }
+        if (ProdutoRequest.getEstoque() != null) {
+            produto.setEstoque(ProdutoRequest.getEstoque());
+        }
+        if (ProdutoRequest.getValor() != null) {
+            produto.setValor(ProdutoRequest.getValor());
+        }
+        if (ProdutoRequest.getDatavalidade() != null) {
+            produto.setDatavalidade(ProdutoRequest.getDatavalidade());
+        }
+
+        produtoDAO.save(produto);
+        return produto;
     }
 
 }
