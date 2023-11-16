@@ -1,5 +1,7 @@
 package com.projetoestacio.estoque.dto;
 
+import com.projetoestacio.estoque.model.enums.CategoriaEnum;
+
 import java.util.Date;
 
 public class AtualizarProdutoRequest {
@@ -48,7 +50,7 @@ public class AtualizarProdutoRequest {
         this.datavalidade = datavalidade;
     }
 
-    public String getCategoria() {
+    public CategoriaEnum getCategoria() {
         return categoria;
     }
 

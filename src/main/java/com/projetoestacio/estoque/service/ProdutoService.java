@@ -16,6 +16,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.text.ParseException;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -106,10 +107,36 @@ public class ProdutoService implements IProdutoService {
         return produtos.stream().filter(s -> s.getSku().equals(sku)).findFirst().orElse(null);
     }
 
-    @Override
+
     public Produto AtualizaProduto(String produtoid, AtualizarProdutoRequest ProdutoRequest) {
-        var produto = produtoDAO.findById(produtoid);
-        if (produtoid != null) {
+        var produtos = produtoDAO.findAll();
+        if (produtos.stream().count()>0) {
+            var produto=produtos.stream().filter(s->s.getId().equals(produtoid)).findFirst().orElse(null);
+            if (produto!=null){
+
+                if (ProdutoRequest.getNome()!=null) {
+                    produto.setNome(ProdutoRequest.getNome());
+                }
+                if (ProdutoRequest.getDescricao()!= null) {
+                    produto.setDescricao(ProdutoRequest.getDescricao());
+                }
+                if (ProdutoRequest.getCategoria() != null) {
+                    produto.setCategoria(ProdutoRequest.getCategoria());
+                }
+                if (ProdutoRequest.getEstoque() != null) {
+                    produto.setEstoque(ProdutoRequest.getEstoque());
+                }
+
+                if (ProdutoRequest.getValor() != null) {
+                    produto.setValor(ProdutoRequest.getValor());
+                }
+                if (ProdutoRequest.getDatavalidade() != null) {
+                    produto.setDatavalidade(ProdutoRequest.getDatavalidade());
+                }
+              produtoDAO.save(produto);
+              return produto;
+            }
+
 
         }
         return null;
