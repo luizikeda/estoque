@@ -5,6 +5,7 @@ import com.projetoestacio.estoque.dto.ProdutoDTO;
 import com.projetoestacio.estoque.dto.filter.ProdutoFilter;
 import com.projetoestacio.estoque.interfaces.IProdutoService;
 import com.projetoestacio.estoque.model.Produto;
+import com.projetoestacio.estoque.model.enums.CategoriaEnum;
 import com.projetoestacio.estoque.repository.ProdutoDAO;
 import jakarta.servlet.http.HttpServletRequest;
 import org.antlr.v4.runtime.misc.NotNull;
@@ -126,7 +127,7 @@ public class ProdutoService implements IProdutoService {
             produto.setDescricao(ProdutoRequest.getDescricao());
         }
         if (ProdutoRequest.getCategoria() != null) {
-            produto.setCategoria(ProdutoRequest.getCategoria());
+            produto.setCategoria(CategoriaEnum.valueOf(ProdutoRequest.getCategoria()));
         }
         if (ProdutoRequest.getEstoque() != null) {
             produto.setEstoque(ProdutoRequest.getEstoque());

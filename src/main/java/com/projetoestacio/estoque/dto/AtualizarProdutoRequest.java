@@ -50,12 +50,8 @@ public class AtualizarProdutoRequest {
         this.datavalidade = datavalidade;
     }
 
-    public CategoriaEnum getCategoria() {
-        return categoria;
-    }
-
-    public void setCategoria(String categoria) {
-        this.categoria = categoria;
+    public void setCategoria(CategoriaEnum categoria) {
+        this.categoria = String.valueOf(categoria);
     }
 
     public String getDescricao() {
@@ -84,5 +80,9 @@ public class AtualizarProdutoRequest {
 
     public void setNome(String nome) {
         this.nome = nome;
+    }
+
+    public String getCategoria() {
+        return categoria;
     }
 }

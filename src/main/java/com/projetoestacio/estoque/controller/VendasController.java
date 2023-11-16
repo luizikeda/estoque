@@ -1,9 +1,12 @@
 package com.projetoestacio.estoque.controller;
 
 import com.projetoestacio.estoque.dto.ProdutoQuantidadeRequest;
+import com.projetoestacio.estoque.interfaces.*;
 import com.projetoestacio.estoque.model.Venda;
 import com.projetoestacio.estoque.repository.VendasDAO;
 import com.projetoestacio.estoque.service.VendasService;
+
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,23 +18,23 @@ import java.util.List;
 public class VendasController{
 
     @Autowired
-    VendasService vendaService;
+    IVendasService vendaService;
 
     @Autowired
     VendasDAO vendasDAO;
 
     @PostMapping
     public Venda criarVenda(@RequestBody Venda venda) {
-        return vendaService.criarVenda(venda);
+        return vendaService.criarVenda (venda);
     }
 
     @PostMapping("/{vendaId}/adicionarProduto")
-    public Venda adicionarProdutoNaVenda(@PathVariable String vendaId, @RequestBody ProdutoQuantidadeRequest produtoQuantidadeRequest) {
+    public Venda adicionarProdutoNaVenda(@PathVariable String vendaId, @RequestBody ProdutoQuantidadeRequest produtoQuantidadeRequest) throws Exception {
         return vendaService.adicionarProdutoNaVenda(vendaId, produtoQuantidadeRequest);
     }
 
     @GetMapping("/{id}")
-    public Venda obterVendaPorId(@PathVariable String id) {
+    public Venda obterVendaPorId(@PathVariable String id) throws Exception {
         return vendaService.obterVendaPorId(id);
     }
 

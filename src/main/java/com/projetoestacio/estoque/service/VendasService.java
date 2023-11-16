@@ -1,6 +1,7 @@
 package com.projetoestacio.estoque.service;
 
 import com.projetoestacio.estoque.dto.ProdutoQuantidadeRequest;
+import com.projetoestacio.estoque.interfaces.IVendasService;
 import com.projetoestacio.estoque.model.Produto;
 import com.projetoestacio.estoque.model.ProdutoVenda;
 import com.projetoestacio.estoque.model.Venda;
@@ -14,7 +15,7 @@ import java.awt.print.Pageable;
 import java.util.List;
 
 @Service
-public class VendasService  {
+public class VendasService  implements IVendasService {
     @Autowired
     VendasDAO vendasDAO;
     @Autowired
@@ -22,45 +23,29 @@ public class VendasService  {
     @Autowired
     ProdutoVendaDAO produtoVendaDAO;
 
-    public Venda criarVenda(Venda venda) {
-        return vendasDAO.save(venda);
+    public Venda adicionarProdutoNaVenda(String vendaId, ProdutoQuantidadeRequest produtoQuantidadeRequest) throws Exception {
+        Venda venda = vendasDAO.findById(vendaId).orElseThrow(() -> new Exception("Venda não encontrada com ID: " + vendaId));
+        Produto produto = produtoDAO.findById(produtoQuantidadeRequest.getProdutoId()).orElseThrow(() -> new Exception("Produto não encontrado com ID: " + produtoQuantidadeRequest.getProdutoId()));
+
+        if (Integer.parseInt(produto.getEstoque()) < produtoQuantidadeRequest.getQuantidade()) {
+            throw new Exception("Quantidade insuficiente em estoque para o produto com ID: " + produto.getId());
+        }
+
+        ProdutoVenda produtoVenda = new ProdutoVenda(produto, venda, produtoQuantidadeRequest.getQuantidade());
+        produtoVendaDAO.save(produtoVenda);
+        return venda;
     }
 
-    public Venda adicionarProdutoNaVenda(String vendaId, ProdutoQuantidadeRequest produtoQuantidadeRequest) {
-        Venda venda = vendasDAO.findById(vendaId).orElse(null);
-        Produto produto = produtoDAO.findById(produtoQuantidadeRequest.getProdutoId()).orElse(null);
-        if(Integer.parseInt(produto.getEstoque())<produtoQuantidadeRequest.getQuantidade())
-            return null;
-        if (venda != null && produto != null) {
-            ProdutoVenda produtovenda = new ProdutoVenda(produto, venda, produtoQuantidadeRequest.getQuantidade());
-            produtoVendaDAO.save(produtovenda);
-            return venda;
-        } else {
-            return null;
-        }
-    }
-
-    /*public Venda removerProdutoDaVenda(String vendaId, String produtoId) {
-        Venda venda = vendasDAO.findById(vendaId).orElse(null);
-        Produto produto = produtoDAO.findById(produtoId).orElse(null);
-
-       List<ProdutoVenda> produtosVendas = produtoVendaDAO.findByProdutoVenda(produto,venda);
-       ProdutoVenda produtoVenda = produtosVendas.stream().findFirst().orElse(null);
-
-        if (produtoVenda!=null) {
-           produtoVendaDAO.delete(produtoVenda);
-           return venda;
-        } else {
-            return null;
-        }
-    }*/
-
-    public Venda obterVendaPorId(String id) {
-        return vendasDAO.findById(id).orElse(null);
+    public Venda obterVendaPorId(String id) throws Exception {
+        return vendasDAO.findById(id).orElseThrow(() -> new Exception("Venda não encontrada com ID: " + id));
     }
 
     public List<Venda> listarVendas() {
         return vendasDAO.findAll();
+    }
+
+    public Venda criarVenda(Venda venda) {
+        return vendasDAO.save(venda);
     }
 
 }

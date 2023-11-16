@@ -3,7 +3,7 @@ package com.projetoestacio.estoque.model.enums;
 public enum CategoriaEnum {
     ELETRONICOS("Eletronicos"),
     BEBIDA("Bebida"),
-    ALIMENTO("Alimetos"),
+    ALIMENTO("Alimentos"),
     LIMPEZA("Limpeza"),
     OUTROS("Outros");
 

@@ -9,9 +9,9 @@ import java.util.List;
 
 public interface IVendasService {
 
-    Venda adicionarProdutoNaVenda(String vendaId, ProdutoQuantidadeRequest produtoQuantidadeRequest);
+    Venda adicionarProdutoNaVenda(String vendaId, ProdutoQuantidadeRequest produtoQuantidadeRequest) throws Exception;
 
-    Venda obterVendaPorId(String id);
+    Venda obterVendaPorId(String id) throws Exception;
 
     List<Venda> listarVendas();
 
