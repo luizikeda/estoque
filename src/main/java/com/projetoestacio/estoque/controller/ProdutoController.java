@@ -1,5 +1,6 @@
 package com.projetoestacio.estoque.controller;
 
+import com.projetoestacio.estoque.dto.AtualizarProdutoRequest;
 import com.projetoestacio.estoque.dto.filter.ProdutoFilter;
 import com.projetoestacio.estoque.interfaces.*;
 import com.projetoestacio.estoque.model.Produto;
@@ -79,9 +80,14 @@ public class ProdutoController {
     }
 
     @GetMapping("/produto")
-    public ResponseEntity<Produto> todosProdutos(String sku) {
+    public ResponseEntity<Produto> buscaProdutosSKU(String sku) {
         Produto produto = _produtoService.BuscaProdutoBySku(sku);
         if (produto == null) return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         return new ResponseEntity<>(produto, HttpStatus.OK);
+    }
+    @PutMapping ("{produtoid}/Atualizar")
+    public ResponseEntity<Produto> atualizaProduto(@PathVariable String produtoid, @RequestBody AtualizarProdutoRequest ProdutoRequest){
+
+        return null;
     }
 }
