@@ -2,10 +2,10 @@ package com.projetoestacio.estoque.controller;
 
 import com.projetoestacio.estoque.dto.AtualizarProdutoRequest;
 import com.projetoestacio.estoque.dto.filter.ProdutoFilter;
-import com.projetoestacio.estoque.interfaces.*;
 import com.projetoestacio.estoque.model.Produto;
 import com.projetoestacio.estoque.model.enums.CategoriaEnum;
 import com.projetoestacio.estoque.repository.ProdutoDAO;
+import com.projetoestacio.estoque.service.ProdutoService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +26,7 @@ import java.util.Map;
 public class ProdutoController {
 
     @Autowired
-    IProdutoService _produtoService;
+    ProdutoService produtoService;
 
     @Autowired
     ProdutoDAO produtoDAO;
@@ -52,7 +52,7 @@ public class ProdutoController {
             return "form_produto";
 
         try {
-            _produtoService.salvar(produtoModel);
+            produtoService.salvar(produtoModel);
             return "redirect:/estoque/cadastro";
         } catch (Exception e) {
             return "form_produto";
@@ -66,14 +66,14 @@ public class ProdutoController {
 
     @GetMapping("/filtrar")
     public ResponseEntity findByCamposByFilial(ProdutoFilter filter, HttpServletRequest request) throws ParseException {
-        Map<String, Object> estruturaDTOs = _produtoService.findByCampos(filter, request);
+        Map<String, Object> estruturaDTOs = produtoService.findByCampos(filter, request);
         return ResponseEntity.ok(estruturaDTOs);
     }
 
     @GetMapping("/listaProdutos")
     public ResponseEntity<List<Produto>> todosProdutos() {
 
-        List<Produto> ListaProdutos = _produtoService.listaProdutos();
+        List<Produto> ListaProdutos = produtoService.listaProdutos();
         if (ListaProdutos.stream().count() > 0)
             return new ResponseEntity<>(ListaProdutos, HttpStatus.OK);
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -81,7 +81,7 @@ public class ProdutoController {
 
     @GetMapping("/produto")
     public ResponseEntity<Produto> buscaProdutosSKU(String sku) {
-        Produto produto = _produtoService.BuscaProdutoBySku(sku);
+        Produto produto = produtoService.BuscaProdutoBySku(sku);
         if (produto == null) return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         return new ResponseEntity<>(produto, HttpStatus.OK);
     }

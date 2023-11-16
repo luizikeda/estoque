@@ -1,9 +1,9 @@
 package com.projetoestacio.estoque.controller;
 
 import com.projetoestacio.estoque.dto.ProdutoQuantidadeRequest;
-import com.projetoestacio.estoque.interfaces.*;
 import com.projetoestacio.estoque.model.Venda;
 import com.projetoestacio.estoque.repository.VendasDAO;
+import com.projetoestacio.estoque.service.VendasService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,7 +15,7 @@ import java.util.List;
 public class VendasController{
 
     @Autowired
-     IVendasService vendaService;
+    VendasService vendaService;
 
     @Autowired
     VendasDAO vendasDAO;

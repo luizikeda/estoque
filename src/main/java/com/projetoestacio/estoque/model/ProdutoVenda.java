@@ -28,6 +28,10 @@ public class ProdutoVenda {
         setVenda(venda);
     }
 
+    public ProdutoVenda() {
+
+    }
+
     public String getId() {
         return id;
     }
