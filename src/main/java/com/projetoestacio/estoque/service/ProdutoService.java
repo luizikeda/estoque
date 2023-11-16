@@ -108,7 +108,7 @@ public class ProdutoService implements IProdutoService {
     }
 
 
-    public Produto AtualizaProduto(String produtoid, AtualizarProdutoRequest ProdutoRequest) {
+    public Produto AtualizaProduto(String produtoid, AtualizarProdutoRequest ProdutoRequest) throws Exception {
         var produtos = produtoDAO.findAll();
         if (produtos.stream().count()>0) {
             var produto=produtos.stream().filter(s->s.getId().equals(produtoid)).findFirst().orElse(null);
@@ -139,7 +139,7 @@ public class ProdutoService implements IProdutoService {
 
 
         }
-        return null;
+        throw new Exception("Lista de produtos vazia");
     }
 
 }
