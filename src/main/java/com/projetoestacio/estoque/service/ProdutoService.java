@@ -1,5 +1,6 @@
 package com.projetoestacio.estoque.service;
 
+import com.projetoestacio.estoque.dto.AtualizarProdutoRequest;
 import com.projetoestacio.estoque.dto.ProdutoDTO;
 import com.projetoestacio.estoque.dto.filter.ProdutoFilter;
 import com.projetoestacio.estoque.interfaces.IProdutoService;
@@ -103,6 +104,15 @@ public class ProdutoService implements IProdutoService {
     public Produto BuscaProdutoBySku(String sku) {
         List<Produto> produtos = produtoDAO.findAll();
         return produtos.stream().filter(s -> s.getSku().equals(sku)).findFirst().orElse(null);
+    }
+
+    @Override
+    public Produto AtualizaProduto(String produtoid, AtualizarProdutoRequest ProdutoRequest) {
+        var produto = produtoDAO.findById(produtoid);
+        if (produtoid != null) {
+
+        }
+        return null;
     }
 
 }

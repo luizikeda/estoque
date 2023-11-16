@@ -1,5 +1,6 @@
 package com.projetoestacio.estoque.interfaces;
 
+import com.projetoestacio.estoque.dto.AtualizarProdutoRequest;
 import com.projetoestacio.estoque.dto.filter.ProdutoFilter;
 import com.projetoestacio.estoque.model.Produto;
 import jakarta.servlet.http.HttpServletRequest;
@@ -13,4 +14,5 @@ public interface IProdutoService {
     public Map<String, Object> findByCampos(ProdutoFilter filter, HttpServletRequest request) throws ParseException;
     public List<Produto> listaProdutos();
     public Produto BuscaProdutoBySku(String sku);
+    public Produto AtualizaProduto (String produtoid, AtualizarProdutoRequest ProdutoRequest);
 }
